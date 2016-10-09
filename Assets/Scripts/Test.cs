@@ -60,7 +60,7 @@ public class Test : MonoBehaviour {
 
 		// 表示領域は任意
 		float space = 16f;
-		float height = 150f;
+		float height = 450f;
 		Rect drawArea = new Rect(space, (float)Screen.height - height - space, (float)Screen.width * 0.5f, height);
 		GUI.Box(drawArea, "");
 
