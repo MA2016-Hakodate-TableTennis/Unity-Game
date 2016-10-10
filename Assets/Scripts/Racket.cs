@@ -23,6 +23,7 @@ public class Racket : MonoBehaviour {
 
 		// メッセージ受信を追加
 		socket.On ("S_to_C_message", S_to_C_message);
+		GetComponent<SphereCollider>().enabled = false;
 
 	}
 	// 追加関数
@@ -57,14 +58,18 @@ public class Racket : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (flg == true) {
+			GetComponent<SphereCollider>().enabled = true;
 			transform.position = new Vector3 (transform.position.x, transform.position.y, initialPos.z - Mathf.PingPong (Time.time,1));
 		}
 		if (Mathf.PingPong (Time.time, 1) <= 0.1f) {
+			GetComponent<SphereCollider>().enabled = false;
 			flg = false;
 		}
 		if (hit == true) {
 			//-col.GetComponent<RigidBody>().zを加算することで、現在の速度を相殺できる.
-			col.GetComponent<Rigidbody> ().AddForce (new Vector3 (0, -2, -col.GetComponent<Rigidbody>().velocity.z - 5), ForceMode.Impulse);
+			col.GetComponent<Rigidbody> ().AddForce (new Vector3 (Random.Range(-1.0f,1.0f), -2, -col.GetComponent<Rigidbody>().velocity.z - 5), ForceMode.Impulse);
+			//回転
+			col.GetComponent<Rigidbody> ().AddTorque(10,0, 0,ForceMode.Force);
 			hit = false;
 		}
 	}
